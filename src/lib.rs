@@ -3,7 +3,7 @@ pub fn selection_sort(arr: &mut [i32]) {
     for iter in 0..arr.len() {
         let mut index_of_min = arr[iter..]
             .iter()
-            .enumerate() // даёт отступ от `index`
+            .enumerate() // даёт отступ от `iter`
             .min_by(|(_, x), (_, y)| x.cmp(y))
             .map(|(i, _)| i)
             .unwrap();
