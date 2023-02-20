@@ -5,14 +5,9 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[profile.release]
-lto = true
-
-[dependencies]
-rand = "0.8.5"
-
 [dev-dependencies]
 criterion = { version = "0.3", features = ["html_reports"] }
+rand = "0.8.5"
 
 [[bench]]
 name = "bench"

@@ -17,15 +17,17 @@ fn gen_rand_vec(len: usize) -> Vec<i32> {
 fn bench_sorts(c: &mut Criterion) {
     let mut group = c.benchmark_group("Sort");
 
-    for i in [2000, 4000, 6000].iter() {
-        let mut v1 = gen_rand_vec(*i);
-        let mut v2 = v1.clone();
-
+    for i in [2000, 4000, 6000] {
+        // Т.к функция сортировки запускается много раз с одними и теми же
+        // агрументами, мы вынуждены постоянно генерировать новый массив.
+        // Время, занимаемое созданием массива, составляет тысячные
+        // доли процентов от времени сортировки, следовательно им можно
+        // пренебречь
         group.bench_function(BenchmarkId::new("Selection", i), |b| {
-            b.iter(|| selection_sort(&mut v1))
+            b.iter(|| selection_sort(&mut gen_rand_vec(i)))
         });
         group.bench_function(BenchmarkId::new("Bubble", i), |b| {
-            b.iter(|| bubble_sort(&mut v2))
+            b.iter(|| bubble_sort(&mut gen_rand_vec(i)))
         });
     }
 
