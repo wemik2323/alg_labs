@@ -15,7 +15,7 @@ fn gen_rand_vec(len: usize) -> Vec<i32> {
 }
 
 fn bench_sorts(c: &mut Criterion) {
-    let mut group = c.benchmark_group("Sort");
+    let mut group = c.benchmark_group("Сортировка");
 
     for i in [2000, 4000, 6000] {
         // Т.к функция сортировки запускается много раз с одними и теми же
@@ -23,10 +23,10 @@ fn bench_sorts(c: &mut Criterion) {
         // Время, занимаемое созданием массива, составляет тысячные
         // доли процентов от времени сортировки, следовательно им можно
         // пренебречь
-        group.bench_function(BenchmarkId::new("Selection", i), |b| {
+        group.bench_function(BenchmarkId::new("Выбором", i), |b| {
             b.iter(|| selection_sort(&mut gen_rand_vec(i)))
         });
-        group.bench_function(BenchmarkId::new("Bubble", i), |b| {
+        group.bench_function(BenchmarkId::new("Пузырьком", i), |b| {
             b.iter(|| bubble_sort(&mut gen_rand_vec(i)))
         });
     }

@@ -15,18 +15,13 @@ pub fn selection_sort(arr: &mut [i32]) {
 
 #[inline]
 pub fn bubble_sort(arr: &mut [i32]) {
-    use std::cmp::Ordering;
-
     for outter in (0..arr.len()).rev() {
         let mut sorted = true;
 
         for inner in 0..outter {
-            match arr[inner].cmp(&arr[inner + 1]) {
-                Ordering::Greater => {
-                    arr.swap(inner, inner + 1);
-                    sorted = false;
-                }
-                _ => (),
+            if arr[inner] > arr[inner + 1] {
+                arr.swap(inner, inner + 1);
+                sorted = false;
             }
         }
 
