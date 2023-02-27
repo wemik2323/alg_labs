@@ -1,2 +1,2 @@
 [workspace]
-members = ["l1", "l2"]
+members = ["l1"]
