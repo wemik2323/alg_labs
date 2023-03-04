@@ -22,7 +22,11 @@ fn bench_searches(c: &mut Criterion) {
 
         group.bench_function(
             BenchmarkId::new("Последовательный", i),
-            |b| b.iter(|| linear_search(arr.as_bytes(), gen_rand_str(5).as_bytes())),
+            |b| {
+                b.iter(|| {
+                    linear_search(arr.as_bytes(), gen_rand_str(5).as_bytes())
+                })
+            },
         );
         group.bench_function(BenchmarkId::new("Рабина", i), |b| {
             b.iter(|| rabin_search(arr.as_bytes(), gen_rand_str(5).as_bytes()))
