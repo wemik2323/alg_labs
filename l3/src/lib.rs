@@ -61,3 +61,32 @@ where
 
     rec_fib_min_impl(func, from, to, near, far)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn iter_fib_min_works() {
+        let linear = |x: f64| -0.5 * x - 3.;
+        assert!((iter_fib_min(linear, -2., 2.) - 2.).abs() <= 1e-5);
+
+        let quadratic = |x: f64| (2. - x).powi(2);
+        assert!((iter_fib_min(quadratic, 1., 4.) - 2.).abs() <= 1e-5);
+
+        let cubic = |x: f64| (x + 2.).powi(3) + 1.;
+        assert!((iter_fib_min(cubic, -3., -1.) + 3.).abs() <= 1e-5);
+    }
+
+    #[test]
+    fn rec_fib_min_works() {
+        let linear = |x: f64| -0.5 * x - 3.;
+        assert!((rec_fib_min(linear, -2., 2.) - 2.).abs() <= 1e-5);
+
+        let quadratic = |x: f64| (2. - x).powi(2);
+        assert!((rec_fib_min(quadratic, 1., 4.) - 2.).abs() <= 1e-5);
+
+        let cubic = |x: f64| (x + 2.).powi(3) + 1.;
+        assert!((rec_fib_min(cubic, -3., -1.) + 3.).abs() <= 1e-5);
+    }
+}
