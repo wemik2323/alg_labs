@@ -32,8 +32,10 @@ fn find_set_index(sets: &Vec<Vec<usize>>, node_id: usize) -> usize {
 }
 
 fn merge_sets(sets: &mut Vec<Vec<usize>>, dest: usize, src: usize) {
-    let mut src_vec = sets[src].clone(); // TODO: как-то убрать `clone()`
-    sets[dest].append(&mut src_vec);
+    let src_vec = &mut sets[src] as *mut Vec<usize>;
+    unsafe {
+        sets[dest].append(src_vec.as_mut().unwrap());
+    }
     sets.swap_remove(src);
 }
 
