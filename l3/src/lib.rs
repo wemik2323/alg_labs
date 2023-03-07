@@ -36,6 +36,7 @@ where
     )
 }
 
+#[inline]
 fn rec_fib_min_impl<F>(
     func: F,
     mut from: f64,

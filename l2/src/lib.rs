@@ -16,10 +16,8 @@ pub fn rabin_search(arr: &[u8], substr: &[u8]) -> Option<usize> {
     let substr_sum = hash(substr);
     for (ind, win) in arr.windows(substr.len()).enumerate() {
         let sm = hash(win);
-        if sm == substr_sum {
-            if win == substr {
-                return Some(ind);
-            }
+        if sm == substr_sum && win == substr {
+            return Some(ind);
         }
     }
 

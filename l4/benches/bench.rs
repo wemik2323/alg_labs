@@ -1,4 +1,5 @@
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
+use rand::prelude::*;
 
 use l4::*;
 
@@ -64,9 +65,16 @@ fn bench_spanning_trees(c: &mut Criterion) {
         ),
     ];
 
+    let mut rng = rand::thread_rng();
     for (name, graph) in graphs {
         group.bench_function(BenchmarkId::new("Крускала", name), |b| {
             b.iter(|| kruskal_spanning_tree(graph.clone()))
+        });
+        let mat = graph.to_adj_matrix();
+        group.bench_function(BenchmarkId::new("Прима", name), |b| {
+            b.iter(|| {
+                prim_spanning_tree(&mat, rng.gen_range(0..graph.num_verts()))
+            })
         });
     }
 
