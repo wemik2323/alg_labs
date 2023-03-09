@@ -42,8 +42,8 @@ fn merge_sets(sets: &mut Vec<Vec<usize>>, dest: usize, src: usize) {
 }
 
 #[inline]
-pub fn prim_spanning_tree(mat: &[Vec<usize>], first: usize) -> Graph {
-    let num_verts = mat.len();
+pub fn prim_spanning_tree(graph_adj_mat: &[Vec<usize>], first: usize) -> Graph {
+    let num_verts = graph_adj_mat.len();
     let mut out = Graph::new(num_verts, Default::default());
 
     let mut selected = vec![false; num_verts];
@@ -56,7 +56,7 @@ pub fn prim_spanning_tree(mat: &[Vec<usize>], first: usize) -> Graph {
         for i in 0..num_verts {
             if selected[i] {
                 for j in 0..num_verts {
-                    let weight = mat[i][j];
+                    let weight = graph_adj_mat[i][j];
                     if !selected[j] && weight > 0 && min_weight > weight {
                         min_weight = weight;
                         min_row = i;
@@ -66,8 +66,11 @@ pub fn prim_spanning_tree(mat: &[Vec<usize>], first: usize) -> Graph {
             }
         }
 
-        out.edges
-            .push(GraphEdge::new(min_row, min_col, mat[min_row][min_col]));
+        out.edges.push(GraphEdge::new(
+            min_row,
+            min_col,
+            graph_adj_mat[min_row][min_col],
+        ));
         selected[min_col] = true;
     }
 

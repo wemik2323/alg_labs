@@ -3,12 +3,12 @@ use rand::prelude::*;
 
 use l5::*;
 
-fn bench_spanning_trees(c: &mut Criterion) {
-    let mut group = c.benchmark_group("Остовное древо");
+fn bench_shrtst_paths(c: &mut Criterion) {
+    let mut group = c.benchmark_group("Кратчайший путь");
 
     let graphs = vec![
         (
-            "Пример 1",
+            "Л5 пример 1",
             Graph::new(
                 6,
                 vec![
@@ -26,7 +26,7 @@ fn bench_spanning_trees(c: &mut Criterion) {
             ),
         ),
         (
-            "Пример 2",
+            "Л5 пример 2",
             Graph::new(
                 5,
                 vec![
@@ -42,7 +42,7 @@ fn bench_spanning_trees(c: &mut Criterion) {
             ),
         ),
         (
-            "Вариант 9(16)",
+            "Л5 вариант 9(16)",
             Graph::new(
                 8,
                 vec![
@@ -63,23 +63,53 @@ fn bench_spanning_trees(c: &mut Criterion) {
                 ],
             ),
         ),
+        (
+            "Л6 пример 2",
+            Graph::new(
+                9,
+                vec![
+                    GraphEdge::new(0, 1, 7),
+                    GraphEdge::new(0, 3, 10),
+                    GraphEdge::new(1, 4, 9),
+                    GraphEdge::new(1, 2, 27),
+                    GraphEdge::new(2, 8, 15),
+                    GraphEdge::new(3, 4, 8),
+                    GraphEdge::new(3, 6, 31),
+                    GraphEdge::new(4, 5, 11),
+                    GraphEdge::new(5, 7, 17),
+                    GraphEdge::new(5, 8, 15),
+                    GraphEdge::new(6, 7, 32),
+                    GraphEdge::new(7, 8, 21),
+                ],
+            ),
+        ),
     ];
 
     let mut rng = rand::thread_rng();
     for (name, graph) in graphs {
-        // group.bench_function(BenchmarkId::new("Крускала", name), |b| {
-        //     b.iter(|| kruskal_spanning_tree(graph.clone()))
-        // });
-        // let mat = graph.to_adj_matrix();
-        // group.bench_function(BenchmarkId::new("Прима", name), |b| {
-        //     b.iter(|| {
-        //         prim_spanning_tree(&mat, rng.gen_range(0..graph.num_verts()))
-        //     })
-        // });
+        group.bench_function(BenchmarkId::new("Флойда", name), |b| {
+            b.iter(|| {
+                floyd_shrtst_path(
+                    &graph,
+                    rng.gen_range(0..graph.num_verts()),
+                    rng.gen_range(0..graph.num_verts()),
+                )
+            })
+        });
+        let mat = graph.to_adj_matrix();
+        group.bench_function(BenchmarkId::new("Дейкстры", name), |b| {
+            b.iter(|| {
+                dijkstra_shrtst_path(
+                    &mat,
+                    rng.gen_range(0..graph.num_verts()),
+                    rng.gen_range(0..graph.num_verts()),
+                )
+            })
+        });
     }
 
     group.finish();
 }
 
-criterion_group!(benches, bench_spanning_trees);
+criterion_group!(benches, bench_shrtst_paths);
 criterion_main!(benches);
