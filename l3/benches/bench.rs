@@ -12,7 +12,7 @@ fn bench_optimisations(c: &mut Criterion) {
         BenchmarkId::new("Линейная", "Итеративно"),
         |b| {
             b.iter(|| {
-                iter_fib_min(
+                iter_gldn_ratio_min(
                     linear,
                     rng.gen_range(-5.0..-1.),
                     rng.gen_range(1.0..5.),
@@ -24,7 +24,7 @@ fn bench_optimisations(c: &mut Criterion) {
         BenchmarkId::new("Линейная", "Рекурсивно"),
         |b| {
             b.iter(|| {
-                rec_fib_min(
+                rec_gldn_ratio_min(
                     linear,
                     rng.gen_range(-5.0..-1.),
                     rng.gen_range(1.0..5.),
@@ -38,7 +38,7 @@ fn bench_optimisations(c: &mut Criterion) {
         BenchmarkId::new("Квадратичная", "Итеративно"),
         |b| {
             b.iter(|| {
-                iter_fib_min(
+                iter_gldn_ratio_min(
                     quadratic,
                     rng.gen_range(-2.0..1.),
                     rng.gen_range(3.0..5.),
@@ -50,7 +50,7 @@ fn bench_optimisations(c: &mut Criterion) {
         BenchmarkId::new("Квадратичная", "Рекурсивно"),
         |b| {
             b.iter(|| {
-                rec_fib_min(
+                rec_gldn_ratio_min(
                     quadratic,
                     rng.gen_range(-2.0..1.),
                     rng.gen_range(3.0..5.),
@@ -64,7 +64,7 @@ fn bench_optimisations(c: &mut Criterion) {
         BenchmarkId::new("Кубическая", "Итеративно"),
         |b| {
             b.iter(|| {
-                iter_fib_min(
+                iter_gldn_ratio_min(
                     cubic,
                     rng.gen_range(-4.0..-3.),
                     rng.gen_range(-2.0..0.),
@@ -76,7 +76,7 @@ fn bench_optimisations(c: &mut Criterion) {
         BenchmarkId::new("Кубическая", "Рекурсивно"),
         |b| {
             b.iter(|| {
-                rec_fib_min(
+                rec_gldn_ratio_min(
                     cubic,
                     rng.gen_range(-4.0..-3.),
                     rng.gen_range(-2.0..0.),

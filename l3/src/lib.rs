@@ -1,7 +1,7 @@
 const PHI: f64 = 1.618033988749894;
 
 #[inline]
-pub fn iter_fib_min<F>(func: F, mut from: f64, mut to: f64) -> f64
+pub fn iter_gldn_ratio_min<F>(func: F, mut from: f64, mut to: f64) -> f64
 where
     F: Fn(f64) -> f64,
 {
@@ -23,7 +23,7 @@ where
 }
 
 #[inline]
-pub fn rec_fib_min<F>(func: F, from: f64, to: f64) -> f64
+pub fn rec_gldn_ratio_min<F>(func: F, from: f64, to: f64) -> f64
 where
     F: Fn(f64) -> f64,
 {
@@ -70,24 +70,24 @@ mod tests {
     #[test]
     fn iter_fib_min_works() {
         let linear = |x: f64| -0.5 * x - 3.;
-        assert!((iter_fib_min(linear, -2., 2.) - 2.).abs() <= 1e-5);
+        assert!((iter_gldn_ratio_min(linear, -2., 2.) - 2.).abs() <= 1e-5);
 
         let quadratic = |x: f64| (2. - x).powi(2);
-        assert!((iter_fib_min(quadratic, 1., 4.) - 2.).abs() <= 1e-5);
+        assert!((iter_gldn_ratio_min(quadratic, 1., 4.) - 2.).abs() <= 1e-5);
 
         let cubic = |x: f64| (x + 2.).powi(3) + 1.;
-        assert!((iter_fib_min(cubic, -3., -1.) + 3.).abs() <= 1e-5);
+        assert!((iter_gldn_ratio_min(cubic, -3., -1.) + 3.).abs() <= 1e-5);
     }
 
     #[test]
     fn rec_fib_min_works() {
         let linear = |x: f64| -0.5 * x - 3.;
-        assert!((rec_fib_min(linear, -2., 2.) - 2.).abs() <= 1e-5);
+        assert!((rec_gldn_ratio_min(linear, -2., 2.) - 2.).abs() <= 1e-5);
 
         let quadratic = |x: f64| (2. - x).powi(2);
-        assert!((rec_fib_min(quadratic, 1., 4.) - 2.).abs() <= 1e-5);
+        assert!((rec_gldn_ratio_min(quadratic, 1., 4.) - 2.).abs() <= 1e-5);
 
         let cubic = |x: f64| (x + 2.).powi(3) + 1.;
-        assert!((rec_fib_min(cubic, -3., -1.) + 3.).abs() <= 1e-5);
+        assert!((rec_gldn_ratio_min(cubic, -3., -1.) + 3.).abs() <= 1e-5);
     }
 }
