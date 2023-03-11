@@ -5,7 +5,7 @@ use l3::*;
 
 fn bench_optimisations(c: &mut Criterion) {
     let mut group = c.benchmark_group("Минимум");
-    let mut rng = rand::thread_rng();
+    let mut rng = thread_rng();
 
     let linear = |x: f64| -0.5 * x - 3.;
     group.bench_function(

@@ -65,7 +65,7 @@ fn bench_spanning_trees(c: &mut Criterion) {
         ),
     ];
 
-    let mut rng = rand::thread_rng();
+    let mut rng = thread_rng();
     for (name, graph) in graphs {
         group.bench_function(BenchmarkId::new("Крускала", name), |b| {
             b.iter(|| kruskal_spanning_tree(graph.clone()))

@@ -85,7 +85,7 @@ fn bench_shrtst_paths(c: &mut Criterion) {
         ),
     ];
 
-    let mut rng = rand::thread_rng();
+    let mut rng = thread_rng();
     for (name, graph) in graphs {
         group.bench_function(BenchmarkId::new("Флойда", name), |b| {
             b.iter(|| {

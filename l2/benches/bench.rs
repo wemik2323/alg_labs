@@ -5,7 +5,7 @@ use l2::*;
 
 fn gen_rand_str(len: usize) -> String {
     let mut ret = String::with_capacity(len);
-    let mut rng = rand::thread_rng();
+    let mut rng = thread_rng();
 
     for _ in 0..len {
         ret.push(rng.gen_range('a'..'p'));

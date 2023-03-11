@@ -5,7 +5,7 @@ use l1::*;
 
 fn gen_rand_vec(len: usize) -> Vec<i32> {
     let mut ret = Vec::with_capacity(len);
-    let mut rng = rand::thread_rng();
+    let mut rng = thread_rng();
 
     for _ in 0..len {
         ret.push(rng.gen());
