@@ -23,7 +23,11 @@ fn iter_backtr_maze_gen_works() {
         }
     }
 
-    imgbuf.save("iter_backtr.png").unwrap();
+    let path = std::env::args().nth(0).unwrap();
+    let path = path.split_inclusive("target").next().unwrap().to_owned()
+        + "/iter_backtr.png";
+
+    imgbuf.save(&path).unwrap();
 }
 
 #[test]
@@ -31,9 +35,9 @@ fn aldous_broder_maze_gen_works() {
     let mut imgbuf = image::ImageBuffer::new(WIDTH, WIDTH);
 
     for (x, y, pixel) in imgbuf.enumerate_pixels_mut() {
-        let r = (0.3 * x as f32) as u8;
-        let b = (0.3 * y as f32) as u8;
-        *pixel = image::Rgb([r, 255, b]);
+        let r = (0.3 * y as f32) as u8;
+        let g = (0.3 * x as f32) as u8;
+        *pixel = image::Rgb([r, g, 255]);
     }
 
     let maze = aldous_broder_maze_gen(NUM_CELLS as _, 0, 0);
@@ -43,7 +47,11 @@ fn aldous_broder_maze_gen_works() {
         }
     }
 
-    imgbuf.save("aldous_broder.png").unwrap();
+    let path = std::env::args().nth(0).unwrap();
+    let path = path.split_inclusive("target").next().unwrap().to_owned()
+        + "/aldous_broder.png";
+
+    imgbuf.save(&path).unwrap();
 }
 
 fn draw_cell(
