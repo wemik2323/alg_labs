@@ -2,7 +2,7 @@
 
 ![Л6](iter_backtr.png)
 
-> Репозиторий использует [Cargo](https://www.rust-lang.org/learn/get-started).
+> Репозиторий использует [Cargo](https://www.rust-lang.org/ru/learn/get-started).
 
 ## Скачивание, сборка и запуск бенчмарков
 
