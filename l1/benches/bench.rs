@@ -29,6 +29,9 @@ fn bench_sorts(c: &mut Criterion) {
         group.bench_function(BenchmarkId::new("Пузырьком", i), |b| {
             b.iter(|| bubble_sort(&mut gen_rand_vec(i)))
         });
+        group.bench_function(BenchmarkId::new("Шелла", i), |b| {
+            b.iter(|| shell_sort(&mut gen_rand_vec(i)))
+        });
     }
 
     group.finish();
