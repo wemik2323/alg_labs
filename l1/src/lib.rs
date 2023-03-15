@@ -31,6 +31,23 @@ pub fn bubble_sort(arr: &mut [i32]) {
     }
 }
 
+#[inline]
+pub fn shell_sort(arr: &mut [i32]) {
+    let mut step = arr.len() / 2;
+    let mut j;
+
+    while step > 0 {
+        for i in step..arr.len() {
+            j = i;
+            while j >= step && arr[j - step] > arr[j] {
+                arr.swap(j - step, j);
+                j -= step;
+            }
+        }
+        step /= 2;
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -52,6 +69,17 @@ mod tests {
         let mut v2 = v1.clone();
 
         bubble_sort(&mut v1);
+        v2.sort();
+
+        assert_eq!(v1, v2);
+    }
+
+    #[test]
+    fn shell_sort_works() {
+        let mut v1 = vec![3, -1, 12, 0, 2, 20];
+        let mut v2 = v1.clone();
+
+        shell_sort(&mut v1);
         v2.sort();
 
         assert_eq!(v1, v2);
