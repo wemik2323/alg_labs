@@ -75,7 +75,7 @@ mod tests {
     }
 
     #[test]
-    fn knoot_search_works() {
+    fn knuth_search_works() {
         let s = "qpoueangygnzlhtahgegbbxlotw";
 
         assert_eq!(knuth_search(s.as_bytes(), "tahge".as_bytes()), Some(14));
