@@ -33,18 +33,18 @@ pub fn bubble_sort(arr: &mut [i32]) {
 
 #[inline]
 pub fn shell_sort(arr: &mut [i32]) {
-    let mut step = arr.len() / 2;
+    let mut dist = arr.len() / 2;
     let mut j;
 
-    while step > 0 {
-        for i in step..arr.len() {
+    while dist > 0 {
+        for i in dist..arr.len() {
             j = i;
-            while j >= step && arr[j - step] > arr[j] {
-                arr.swap(j - step, j);
-                j -= step;
+            while j >= dist && arr[j - dist] > arr[j] {
+                arr.swap(j - dist, j);
+                j -= dist;
             }
         }
-        step /= 2;
+        dist /= 2;
     }
 }
 
