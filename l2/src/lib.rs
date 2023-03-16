@@ -1,5 +1,3 @@
-use std::u8;
-
 #[inline]
 pub fn linear_search(arr: &[u8], substr: &[u8]) -> Option<usize> {
     for (ind, win) in arr.windows(substr.len()).enumerate() {
