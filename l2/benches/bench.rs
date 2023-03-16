@@ -31,7 +31,7 @@ fn bench_searches(c: &mut Criterion) {
         group.bench_function(BenchmarkId::new("Рабина", i), |b| {
             b.iter(|| rabin_search(arr.as_bytes(), gen_rand_str(5).as_bytes()))
         });
-        group.bench_function(BenchmarkId::new("Кнут", i), |b| {
+        group.bench_function(BenchmarkId::new("Кнута", i), |b| {
             b.iter(|| knuth_search(arr.as_bytes(), gen_rand_str(5).as_bytes()))
         });
     }

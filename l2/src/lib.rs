@@ -27,14 +27,17 @@ pub fn rabin_search(arr: &[u8], substr: &[u8]) -> Option<usize> {
 #[inline]
 pub fn knuth_search(arr: &[u8], substr: &[u8]) -> Option<usize> {
     let mut d = vec![0; substr.len()];
+
     let mut j = 0;
     for i in 1..substr.len() {
         while j > 0 && substr[j] != substr[i] {
             j = d[j - 1];
         }
+
         if substr[j] == substr[i] {
             j += 1;
         }
+
         d[i] = j;
     }
 
@@ -43,9 +46,11 @@ pub fn knuth_search(arr: &[u8], substr: &[u8]) -> Option<usize> {
         while j > 0 && substr[j] != arr[i] {
             j = d[j - 1];
         }
+
         if substr[j] == arr[i] {
             j += 1;
         }
+
         if j == substr.len() {
             return Some(i - j + 1);
         }
