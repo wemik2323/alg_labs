@@ -1,6 +1,6 @@
 #[inline]
 pub fn kruskal_spanning_tree(mut graph: Graph) -> Graph {
-    let mut out = Graph::new(graph.num_verts, Default::default());
+    let mut out = Graph::new(graph.num_verts, vec![]);
     let mut vert_sets: Vec<Vec<usize>> =
         (0..graph.num_verts).map(|i| vec![i]).collect();
 
@@ -44,7 +44,7 @@ fn merge_sets(sets: &mut Vec<Vec<usize>>, dest: usize, src: usize) {
 #[inline]
 pub fn prim_spanning_tree(graph_adj_mat: &[Vec<usize>], first: usize) -> Graph {
     let num_verts = graph_adj_mat.len();
-    let mut out = Graph::new(num_verts, Default::default());
+    let mut out = Graph::new(num_verts, vec![]);
 
     let mut selected = vec![false; num_verts];
     selected[first] = true;
