@@ -15,7 +15,7 @@ pub fn iter_backtr_maze_gen(width: usize, x: usize, y: usize) -> Vec<Vec<u8>> {
 
         if let Some(mut r_n) = rand_neighbour(&out, &curr_cell, true) {
             remove_wall(&mut curr_cell, &mut r_n);
-            stack.push(curr_cell.clone());
+            stack.push(curr_cell);
             r_n.state |= VISITED;
 
             out[curr_cell.x_pos][curr_cell.y_pos] = curr_cell.state;
@@ -95,7 +95,7 @@ fn rand_neighbour(
         return None;
     }
 
-    Some(out[thread_rng().gen_range(0..out.len())].clone())
+    Some(out[thread_rng().gen_range(0..out.len())])
 }
 
 fn remove_wall(from: &mut Cell, to: &mut Cell) {
@@ -117,7 +117,7 @@ fn remove_wall(from: &mut Cell, to: &mut Cell) {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Copy)]
 struct Cell {
     state: u8,
     x_pos: usize,

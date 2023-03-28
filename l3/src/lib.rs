@@ -41,8 +41,7 @@ fn rec_fib_min_impl(
     mut to: f64,
     mut near: f64,
     mut far: f64,
-) -> f64
-{
+) -> f64 {
     if (to - from).abs() <= 1e-5 {
         return (to + from) / 2.;
     }

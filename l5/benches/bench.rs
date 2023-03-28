@@ -6,7 +6,7 @@ use l5::*;
 fn bench_shrtst_paths(c: &mut Criterion) {
     let mut group = c.benchmark_group("Кратчайший путь");
 
-    let graphs = vec![
+    let graphs = [
         (
             "Л5 пример 1",
             Graph::new(
