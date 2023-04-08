@@ -17,23 +17,26 @@ fn gen_rand_str(len: usize) -> String {
 fn bench_searches(c: &mut Criterion) {
     let mut group = c.benchmark_group("Поиск подстроки");
 
-    for i in [3000, 6000, 9000] {
-        let arr = gen_rand_str(i);
+    let mut len = 50;
+    while len <= 1000 {
+        let arr = gen_rand_str(len);
 
         group.bench_function(
-            BenchmarkId::new("Последовательный", i),
+            BenchmarkId::new("Последовательный", len),
             |b| {
                 b.iter(|| {
                     linear_search(arr.as_bytes(), gen_rand_str(5).as_bytes())
                 })
             },
         );
-        group.bench_function(BenchmarkId::new("Рабина", i), |b| {
+        group.bench_function(BenchmarkId::new("Рабина", len), |b| {
             b.iter(|| rabin_search(arr.as_bytes(), gen_rand_str(5).as_bytes()))
         });
-        group.bench_function(BenchmarkId::new("Кнута", i), |b| {
+        group.bench_function(BenchmarkId::new("Кнута", len), |b| {
             b.iter(|| knuth_search(arr.as_bytes(), gen_rand_str(5).as_bytes()))
         });
+
+        len += 50;
     }
 
     group.finish();
