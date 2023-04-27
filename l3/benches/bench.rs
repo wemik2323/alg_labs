@@ -3,9 +3,6 @@ use rand::prelude::*;
 
 use l3::*;
 
-// 100 - 200 вершин у графов
-// без изолированных вершин
-// поиск в глубину / Боровки
 fn bench_optimisations(c: &mut Criterion) {
     let mut group = c.benchmark_group("Минимум");
     let mut rng = thread_rng();
