@@ -85,6 +85,28 @@ pub fn dijkstra_shrtst_path(
     out
 }
 
+#[inline]
+pub fn bellford_shrtst_path(graph: &Graph, from: usize, to: usize) -> usize {
+    let mut shrt_dist = vec![std::usize::MAX; graph.num_verts];
+    shrt_dist[from] = 0;
+
+    for _ in 0..graph.num_verts {
+        for edge in &graph.edges {
+            let u = edge.from;
+            let v = edge.to;
+            let w = edge.weight;
+
+            if shrt_dist[u] != std::usize::MAX
+                && shrt_dist[u] + w < shrt_dist[v]
+            {
+                shrt_dist[v] = shrt_dist[u] + w;
+            }
+        }
+    }
+
+    shrt_dist[to]
+}
+
 pub struct GraphEdge {
     from: usize,
     to: usize,
@@ -174,5 +196,28 @@ mod tests {
             dijkstra_shrtst_path(&g.to_adj_matrix(), 0, 8),
             vec![0, 1, 4, 5, 8]
         );
+    }
+
+    #[test]
+    fn bellford_shrtst_path_works() {
+        let g = Graph::new(
+            9,
+            vec![
+                GraphEdge::new(0, 1, 7),
+                GraphEdge::new(0, 3, 10),
+                GraphEdge::new(1, 4, 9),
+                GraphEdge::new(1, 2, 27),
+                GraphEdge::new(2, 8, 15),
+                GraphEdge::new(3, 4, 8),
+                GraphEdge::new(3, 6, 31),
+                GraphEdge::new(4, 5, 11),
+                GraphEdge::new(5, 7, 17),
+                GraphEdge::new(5, 8, 15),
+                GraphEdge::new(6, 7, 32),
+                GraphEdge::new(7, 8, 21),
+            ],
+        );
+
+        assert_eq!(bellford_shrtst_path(&g, 0, 8), 42);
     }
 }
