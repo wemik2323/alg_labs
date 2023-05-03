@@ -59,6 +59,26 @@ pub fn aldous_broder_maze_gen(
     out
 }
 
+#[inline]
+pub fn rec_backtr_maze_gen(width: usize, x: usize, y: usize) -> Vec<Vec<u8>> {
+    let mut out = vec![vec![0; width]; width];
+    rec_backtr_maze_gen_impl(&mut out, x, y);
+
+    out
+}
+
+#[inline]
+fn rec_backtr_maze_gen_impl(maze: &mut [Vec<u8>], x: usize, y: usize) {
+    maze[x][y] |= VISITED;
+    let mut curr_cell = Cell::new(maze[x][y], x, y);
+    while let Some(mut n) = rand_neighbour(maze, &curr_cell, true) {
+        remove_wall(&mut curr_cell, &mut n);
+        maze[x][y] = curr_cell.state;
+        maze[n.x_pos][n.y_pos] = n.state;
+        rec_backtr_maze_gen_impl(maze, n.x_pos, n.y_pos);
+    }
+}
+
 use rand::prelude::*;
 fn rand_neighbour(
     mat: &[Vec<u8>],
